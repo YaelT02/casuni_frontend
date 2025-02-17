@@ -1,0 +1,9 @@
+/* Fondo de la sección principal */
+.home-page {
+    background-image: url('../media/background_prueba.jpg'); /* Cambia esto por la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+  }
+  
