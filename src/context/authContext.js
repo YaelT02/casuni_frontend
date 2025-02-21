@@ -15,7 +15,10 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       axios
-        .post('http://localhost:5000/api/auth/protected', { token })
+        .post(
+          'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/protected'
+          //'http://localhost:5000/api/auth/protected'
+          , { token })
         .then((response) => {
           const authenticatedUser = { ...response.data.user, token };
           setUser(authenticatedUser);

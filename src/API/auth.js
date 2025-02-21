@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Configuración base para las solicitudes
-const API_URL = 'http://localhost:5000/api/auth'; // URL del backend
+//const API_URL = 'http://localhost:5000/api/auth'; // URL del backend
+const API_URL = 'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth'; // URL del backend
 
 // Función para iniciar sesión
 export const login = async (username, password) => {

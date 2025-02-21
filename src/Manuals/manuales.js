@@ -24,7 +24,10 @@ const ManualsPage = () => {
   useEffect(() => {
     const fetchManuals = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/manuals/', {
+        const response = await axios.get(
+          'https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/'
+          //'http://localhost:5000/api/manuals/'
+          , {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
