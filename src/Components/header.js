@@ -22,6 +22,7 @@ import {
   Settings,
   ExitToApp,
   Upload,
+  ListAltSharp,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
@@ -310,6 +311,16 @@ const Header = () => {
             onClose={handleUserMenuClose}
             sx={{ mt: 1 }}
           >
+          
+            {user?.role === 'admin' && (
+              <MenuItem onClick={() => handleNavigate('/bitacora')}>
+                <ListItemIcon>
+                  <ListAltSharp fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Bitácora" />
+              </MenuItem>
+            )}
+
             <MenuItem onClick={() => handleNavigate('/configuracion')}>
               <ListItemIcon>
                 <Settings fontSize="small" />

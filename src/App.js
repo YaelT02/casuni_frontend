@@ -9,6 +9,7 @@ import { AuthProvider } from './context/authContext'; // Importar el AuthProvide
 import ProtectedRoute from './Components/protectedRoute'; // Componente para rutas protegidas
 import ChangePassword from './Login_page/changePassword';
 import TermsAndConditions from './Components/termsAndConditions';
+import BitacoraTable from './Bitacora/bitacoraTable';
 
 const App = () => {
   return (
@@ -52,6 +53,15 @@ const App = () => {
             element={
               <ProtectedRoute requiredRole="admin">
                 <UploadManualPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/bitacora"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <BitacoraTable />
               </ProtectedRoute>
             }
           />
