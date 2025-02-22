@@ -65,10 +65,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Función para cerrar sesión
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('token');
-    navigate('/login', { replace: true });
+  const logout = async () => {
+    try{
+      await axios.post(
+        'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/logout',
+        {},
+        { headers: { Authorization: `Bearer ${user?.token}` } }
+      );
+    }catch (error){
+      console.error('Error registrando logout: ', error);
+    }finally{
+      setUser(null);
+      localStorage.removeItem('token');
+      navigate('/login', { replace: true });
+    }
   };
 
   if (loading) {

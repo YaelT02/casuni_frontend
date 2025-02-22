@@ -121,7 +121,7 @@ const ManualsPage = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      href={manual.file_url}
+                      href={`https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/download/${manual.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{ textTransform: 'none' }}
