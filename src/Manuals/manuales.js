@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Header from '../Components/header';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
-import { response } from 'express';
+//import { response } from 'express';
 
 const ManualsPage = () => {
   const [manuals, setManuals] = useState([]);
