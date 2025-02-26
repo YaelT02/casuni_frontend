@@ -60,6 +60,8 @@ const headCells = [
   { id: 'name', label: 'Nombre' },
   { id: 'username', label: 'Usuario' },
   { id: 'area', label: 'Área' },
+  { id: 'ip', label: 'IP' },
+  { id: 'location', label: 'Ubicación' },
 ];
 
 const BitacoraTable = () => {
@@ -214,6 +216,8 @@ const BitacoraTable = () => {
                 <TableCell>{log.name}</TableCell>
                 <TableCell>{log.username}</TableCell>
                 <TableCell>{log.area}</TableCell>
+                <TableCell>{log.ip}</TableCell>
+                <TableCell>{log.location}</TableCell>
               </TableRow>
             ))}
             {paginatedLogs.length === 0 && (

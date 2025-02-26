@@ -50,10 +50,11 @@ export const AuthProvider = ({ children }) => {
   }, [navigate, location]);
 
   // Función para iniciar sesión
-  const login = (userData, token) => {
-    const authenticatedUser = { ...userData, token };
+  const login = (userData, token, sessionId) => {
+    const authenticatedUser = { ...userData, token, sessionId };
     setUser(authenticatedUser);
     localStorage.setItem('token', token);
+    localStorage.setItem('sessionId', sessionId);
 
     console.log('Usuario logueado:', authenticatedUser);
 
@@ -66,10 +67,11 @@ export const AuthProvider = ({ children }) => {
 
   // Función para cerrar sesión
   const logout = async () => {
+    const sessionId = user.sessionId || localStorage.getItem('sessionId');
     try{
       await axios.post(
         'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/logout',
-        {},
+        { sessionId },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );
     }catch (error){
@@ -77,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     }finally{
       setUser(null);
       localStorage.removeItem('token');
+      localStorage.removeItem('sessionId');
       navigate('/login', { replace: true });
     }
   };
