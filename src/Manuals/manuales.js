@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Header from '../Components/header';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
+import { response } from 'express';
 
 const ManualsPage = () => {
   const [manuals, setManuals] = useState([]);
@@ -121,9 +122,27 @@ const ManualsPage = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      href={`https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/download/${manual.id}?sessionId=${user.sessionId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={() => {
+                        axios.get(
+                          `https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/download/${manual.id}`,
+                          {
+                            headers: {
+                              Authorization: `Bearer ${user.token}`,
+                              'x-session-id': user.sessionId,
+                            },
+                            responseType: 'blob',
+                          }
+                        ).then((response) => {
+                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', manual.title); // o el nombre que desees
+                            document.body.appendChild(link);
+                            link.click();
+                        }).catch(error => {
+                            console.error('Error en la descarga:', error);
+                        }); 
+                      }}
                       sx={{ textTransform: 'none' }}
                     >
                       Descargar
