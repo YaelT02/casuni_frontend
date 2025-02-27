@@ -133,7 +133,7 @@ const ManualsPage = () => {
                             responseType: 'blob',
                           }
                         ).then((response) => {
-                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
                             const link = document.createElement('a');
                             link.href = url;
                             link.setAttribute('download', manual.title); // o el nombre que desees
