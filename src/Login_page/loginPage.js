@@ -25,7 +25,7 @@ const LoginPage = () => {
       console.log('Respuesta del backend:', response.data);
 
       // Llamar a la función `login` del contexto
-      login(response.data.user, response.data.token);
+      login(response.data.user, response.data.token, response.data.sessionId);
 
     } catch (err) {
       console.error('Error al iniciar sesión:', err.response?.data || err.message);
