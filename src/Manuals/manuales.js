@@ -33,6 +33,8 @@ const ManualsPage = () => {
   }, [user]);
 
   const handleDownload = async (manual) => {
+
+    console.log("SessionId enviado:", user.sessionId);
     try {
       // Realiza la petición con axios para que puedas enviar headers y recibir el archivo como blob
       const response = await axios.get(
