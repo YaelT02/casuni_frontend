@@ -12,30 +12,33 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
+    const storedSessionId = localStorage.getItem('sessionId');
+  
     if (token) {
       axios
         .post(
-          'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/protected'
-          //'http://localhost:5000/api/auth/protected'
-          , { token })
+          'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/protected',
+          { token }
+        )
         .then((response) => {
-          const authenticatedUser = { ...response.data.user, token };
+          // Agregar el sessionId obtenido de localStorage al usuario
+          const authenticatedUser = { ...response.data.user, token, sessionId: storedSessionId };
           setUser(authenticatedUser);
           console.log('Usuario autenticado:', authenticatedUser);
-
+  
           if (authenticatedUser.firstLogin && location.pathname !== '/change-password') {
             navigate('/change-password', { replace: true });
           }
-
+  
           setLoading(false);
         })
         .catch((error) => {
           console.error('Error validando el token:', error.response?.data || error.message);
           localStorage.removeItem('token');
+          localStorage.removeItem('sessionId');
           setUser(null);
           setLoading(false);
-
+  
           if (location.pathname !== '/login') {
             navigate('/login', { replace: true });
           }
