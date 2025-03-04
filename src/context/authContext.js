@@ -71,8 +71,13 @@ export const AuthProvider = ({ children }) => {
     try{
       await axios.post(
         'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/logout',
-        { sessionId },
-        { headers: { Authorization: `Bearer ${user.token}` } }
+        {},
+        { 
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            'x-session-id': sessionId,
+          } 
+        }
       );
     }catch (error){
       console.error('Error registrando logout: ', error);
