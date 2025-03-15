@@ -1,3 +1,4 @@
+// src/Components/header.js
 import React, { useState, useContext } from 'react';
 import {
   AppBar,
@@ -34,40 +35,33 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
 
-  // Abrir menú de Capacitaciones
+  // Menú de Capacitaciones
   const handleCapacitacionesMenuOpen = (event) => {
     setCapacitacionesAnchorEl(event.currentTarget);
   };
-
-  // Cerrar menú de Capacitaciones
   const handleCapacitacionesMenuClose = () => {
     setCapacitacionesAnchorEl(null);
   };
 
-  // Abrir menú del usuario
+  // Menú del Usuario
   const handleUserMenuOpen = (event) => {
     setUserMenuAnchorEl(event.currentTarget);
   };
-
-  // Cerrar menú del usuario
   const handleUserMenuClose = () => {
     setUserMenuAnchorEl(null);
   };
 
-  // Manejar cierre de sesión
   const handleLogout = () => {
     logout();
     handleUserMenuClose();
   };
 
-  // Navegación a páginas específicas
   const handleNavigate = (path) => {
     navigate(path);
     handleCapacitacionesMenuClose();
     handleUserMenuClose();
   };
 
-  // Función para manejar la apertura/cierre de acordeones
   const handleAccordionChange = (accordion) => {
     setActiveAccordion((prev) => (prev === accordion ? null : accordion));
   };
@@ -84,7 +78,6 @@ const Header = () => {
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Logo y Menús */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          {/* Logo */}
           <Box
             component="img"
             src={'/images/logo_casuni.png'}
@@ -93,20 +86,18 @@ const Header = () => {
             onClick={() => navigate('/')}
           />
 
-          {/* Botón de Manuales */}
           <Button
             onClick={() => handleNavigate('/manuales')}
-            sx={{ color: '#333', textTransform: 'none', fontWeight: 'bold' }}
+            sx={{ color: '#183D83', textTransform: 'none', fontWeight: 'bold' }}
           >
             MANUALES
           </Button>
 
-          {/* Menú de Capacitaciones */}
           <Box>
             <Button
               onClick={handleCapacitacionesMenuOpen}
               endIcon={<ExpandMore />}
-              sx={{ color: '#333', textTransform: 'none', fontWeight: 'bold' }}
+              sx={{ color: '#183D83', textTransform: 'none', fontWeight: 'bold' }}
             >
               CAPACITACIONES
             </Button>
@@ -114,27 +105,37 @@ const Header = () => {
               anchorEl={capacitacionesAnchorEl}
               open={Boolean(capacitacionesAnchorEl)}
               onClose={handleCapacitacionesMenuClose}
+              PaperProps={{
+                sx: {
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  boxShadow: '0px 4px 8px rgba(0,0,0,0.2)',
+                },
+              }}
               sx={{ mt: 1 }}
             >
-
-              {/* Marca: Diebold */}
-              <Accordion disableGutters elevation={0} square expanded={activeAccordion === 'diebold'}
+              {/* Desplegable con Accordions para cada marca */}
+              <Accordion
+                disableGutters
+                elevation={0}
+                square
+                expanded={activeAccordion === 'diebold'}
                 onChange={() => handleAccordionChange('diebold')}
-                sx={{ backgroundColor: 'transparent', '&:before': { display: 'none' } }}
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: 1, m: 1, '&:before': { display: 'none' } }}
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography sx={{ fontWeight: 'bold' }}>Diebold</Typography>
+                <AccordionSummary expandIcon={<ExpandMore />} sx={{ px: 2 }}>
+                  <Typography sx={{ fontWeight: 'bold', color: '#183D83' }}>Diebold</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ p: 2 }}>
                   <List>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/diebold/522-frontal')}
                     >
                       522 (Carga frontal)
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/diebold/522-trasera')}
                     >
                       522 (Carga trasera)
@@ -143,30 +144,33 @@ const Header = () => {
                 </AccordionDetails>
               </Accordion>
 
-              {/* Marca: Wincor */}
-              <Accordion disableGutters elevation={0} square expanded={activeAccordion === 'wincor'}
+              <Accordion
+                disableGutters
+                elevation={0}
+                square
+                expanded={activeAccordion === 'wincor'}
                 onChange={() => handleAccordionChange('wincor')}
-                sx={{ backgroundColor: 'transparent', '&:before': { display: 'none' } }}
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: 1, m: 1, '&:before': { display: 'none' } }}
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography sx={{ fontWeight: 'bold' }}>Wincor</Typography>
+                <AccordionSummary expandIcon={<ExpandMore />} sx={{ px: 2 }}>
+                  <Typography sx={{ fontWeight: 'bold', color: '#183D83' }}>Wincor</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ p: 2 }}>
                   <List>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-frontal')}
                     >
                       280 (Carga frontal)
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       280 (Carga trasera)
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       Cineo 2080
@@ -175,30 +179,33 @@ const Header = () => {
                 </AccordionDetails>
               </Accordion>
 
-              {/* Marca: Next Gen */}
-              <Accordion disableGutters elevation={0} square expanded={activeAccordion === 'nextgen'}
+              <Accordion
+                disableGutters
+                elevation={0}
+                square
+                expanded={activeAccordion === 'nextgen'}
                 onChange={() => handleAccordionChange('nextgen')}
-                sx={{ backgroundColor: 'transparent', '&:before': { display: 'none' } }}
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: 1, m: 1, '&:before': { display: 'none' } }}
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography sx={{ fontWeight: 'bold' }}>Next Gen</Typography>
+                <AccordionSummary expandIcon={<ExpandMore />} sx={{ px: 2 }}>
+                  <Typography sx={{ fontWeight: 'bold', color: '#183D83' }}>Next Gen</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ p: 2 }}>
                   <List>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-frontal')}
                     >
                       5550
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       5500
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       5700
@@ -207,18 +214,21 @@ const Header = () => {
                 </AccordionDetails>
               </Accordion>
 
-              {/* Marca: GRG */}
-              <Accordion disableGutters elevation={0} square expanded={activeAccordion === 'grg'}
+              <Accordion
+                disableGutters
+                elevation={0}
+                square
+                expanded={activeAccordion === 'grg'}
                 onChange={() => handleAccordionChange('grg')}
-                sx={{ backgroundColor: 'transparent', '&:before': { display: 'none' } }}
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: 1, m: 1, '&:before': { display: 'none' } }}
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography sx={{ fontWeight: 'bold' }}>GRG</Typography>
+                <AccordionSummary expandIcon={<ExpandMore />} sx={{ px: 2 }}>
+                  <Typography sx={{ fontWeight: 'bold', color: '#183D83' }}>GRG</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ p: 2 }}>
                   <List>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-frontal')}
                     >
                       H22
@@ -227,36 +237,39 @@ const Header = () => {
                 </AccordionDetails>
               </Accordion>
 
-              {/* Marca: NCR */}
-              <Accordion disableGutters elevation={0} square expanded={activeAccordion === 'ncr'}
+              <Accordion
+                disableGutters
+                elevation={0}
+                square
+                expanded={activeAccordion === 'ncr'}
                 onChange={() => handleAccordionChange('ncr')}
-                sx={{ backgroundColor: 'transparent', '&:before': { display: 'none' } }}
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: 1, m: 1, '&:before': { display: 'none' } }}
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                  <Typography sx={{ fontWeight: 'bold' }}>NCR</Typography>
+                <AccordionSummary expandIcon={<ExpandMore />} sx={{ px: 2 }}>
+                  <Typography sx={{ fontWeight: 'bold', color: '#183D83' }}>NCR</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{ p: 2 }}>
                   <List>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/ncrSS23')}
                     >
                       SS23
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       SS27
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       SS84
                     </ListItem>
                     <ListItem
-                      sx={{ cursor: 'pointer', '&:hover': { color: '#007bff' } }}
+                      sx={{ cursor: 'pointer', '&:hover': { color: '#CBCA02' } }}
                       onClick={() => handleNavigate('/capacitaciones/wincor/280-trasera')}
                     >
                       SS38
@@ -270,10 +283,9 @@ const Header = () => {
 
         {/* Menú del Usuario */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {/* Botón para subir archivos (solo para admin) */}
           {user?.role === 'admin' && (
             <Button
-              onClick={() => navigate('/upload')}
+              onClick={() => handleNavigate('/upload')}
               variant="contained"
               startIcon={<Upload />}
               sx={{
@@ -298,41 +310,66 @@ const Header = () => {
             }}
             onClick={handleUserMenuOpen}
           >
-            <Typography sx={{ color: '#333', fontWeight: 'bold' }}>
-              {user?.nombre || 'Usuario'} {/* Mostrar el nombre del usuario */}
+            <Typography sx={{ color: '#183D83', fontWeight: 'bold' }}>
+              {user?.nombre || 'Usuario'}
             </Typography>
-            <Person fontSize="large" sx={{ color: '#333' }} />
+            <Person fontSize="large" sx={{ color: '#183D83' }} />
           </Box>
 
-          {/* Menú desplegable del usuario */}
           <Menu
             anchorEl={userMenuAnchorEl}
             open={Boolean(userMenuAnchorEl)}
             onClose={handleUserMenuClose}
+            PaperProps={{
+              sx: {
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: '0px 4px 8px rgba(0,0,0,0.2)',
+              },
+            }}
             sx={{ mt: 1 }}
           >
-          
             {user?.role === 'admin' && (
-              <MenuItem onClick={() => handleNavigate('/bitacora')}>
+              <MenuItem
+                onClick={() => handleNavigate('/bitacora')}
+                sx={{
+                  px: 2,
+                  py: 1,
+                  '&:hover': { backgroundColor: '#f9f9f9', color: '#CBCA02' },
+                }}
+              >
                 <ListItemIcon>
-                  <ListAltSharp fontSize="small" />
+                  <ListAltSharp fontSize="small" sx={{ color: '#183D83' }} />
                 </ListItemIcon>
-                <ListItemText primary="Bitácora" />
+                <ListItemText primary="Bitácora" sx={{ color: '#183D83' }} />
               </MenuItem>
             )}
-
-            <MenuItem onClick={() => handleNavigate('/configuracion')}>
+            <MenuItem
+              onClick={() => handleNavigate('/configuracion')}
+              sx={{
+                px: 2,
+                py: 1,
+                '&:hover': { backgroundColor: '#f9f9f9', color: '#CBCA02' },
+              }}
+            >
               <ListItemIcon>
-                <Settings fontSize="small" />
+                <Settings fontSize="small" sx={{ color: '#183D83' }} />
               </ListItemIcon>
-              <ListItemText primary="Configuración" />
+              <ListItemText primary="Configuración" sx={{ color: '#183D83' }} />
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleLogout}>
+            <MenuItem
+              onClick={handleLogout}
+              sx={{
+                px: 2,
+                py: 1,
+                '&:hover': { backgroundColor: '#f9f9f9', color: '#CBCA02' },
+              }}
+            >
               <ListItemIcon>
-                <ExitToApp fontSize="small" />
+                <ExitToApp fontSize="small" sx={{ color: '#183D83' }} />
               </ListItemIcon>
-              <ListItemText primary="Cerrar Sesión" />
+              <ListItemText primary="Cerrar Sesión" sx={{ color: '#183D83' }} />
             </MenuItem>
           </Menu>
         </Box>

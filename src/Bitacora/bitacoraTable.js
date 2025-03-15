@@ -137,19 +137,19 @@ const BitacoraTable = () => {
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box sx={{ p: 4 }}>
       {/* Botón para regresar a la página principal */}
-      <Box sx={{ marginBottom: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <Button variant="outlined" onClick={() => navigate('/')} startIcon={<i className="fas fa-home"></i>}>
           Regresar a Principal
         </Button>
       </Box>
 
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ color: '#183D83', fontWeight: 'bold' }}>
         Bitácora de Eventos
       </Typography>
 
-      <Grid container spacing={2} sx={{ marginBottom: 2 }}>
+      <Grid container spacing={2} sx={{ mb: 2 }}>
         <Grid item xs={12} sm={4}>
           <TextField
             label="Buscar por nombre o evento"
@@ -157,10 +157,11 @@ const BitacoraTable = () => {
             fullWidth
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{ backgroundColor: '#fff' }}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <FormControl fullWidth variant="outlined">
+          <FormControl fullWidth variant="outlined" sx={{ backgroundColor: '#fff' }}>
             <InputLabel>Tipo de Evento</InputLabel>
             <Select
               label="Tipo de Evento"
@@ -180,25 +181,27 @@ const BitacoraTable = () => {
               label="Filtrar por fecha"
               value={filterDate}
               onChange={(newValue) => setFilterDate(newValue)}
-              renderInput={(params) => <TextField {...params} fullWidth />}
+              renderInput={(params) => <TextField {...params} fullWidth sx={{ backgroundColor: '#fff' }} />}
             />
           </LocalizationProvider>
         </Grid>
       </Grid>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ backgroundColor: '#183D83' }}>
             <TableRow>
               {headCells.map((headCell) => (
                 <TableCell
                   key={headCell.id}
                   sortDirection={orderBy === headCell.id ? order : false}
+                  sx={{ color: '#F9FD05', fontWeight: 'bold' }}
                 >
                   <TableSortLabel
                     active={orderBy === headCell.id}
                     direction={orderBy === headCell.id ? order : 'asc'}
                     onClick={(event) => handleRequestSort(event, headCell.id)}
+                    sx={{ color: '#F9FD05', '&.Mui-active': { color: '#F9FD05' } }}
                   >
                     {headCell.label}
                   </TableSortLabel>
@@ -208,7 +211,7 @@ const BitacoraTable = () => {
           </TableHead>
           <TableBody>
             {paginatedLogs.map((log) => (
-              <TableRow key={log.id}>
+              <TableRow key={log.id} sx={{ '&:hover': { backgroundColor: '#f0f0f0' } }}>
                 <TableCell>{log.id}</TableCell>
                 <TableCell>{log.event_type}</TableCell>
                 <TableCell>{log.description}</TableCell>
@@ -222,7 +225,7 @@ const BitacoraTable = () => {
             ))}
             {paginatedLogs.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7} align="center">
+                <TableCell colSpan={9} align="center">
                   No se encontraron registros.
                 </TableCell>
               </TableRow>
@@ -238,6 +241,7 @@ const BitacoraTable = () => {
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
+        sx={{ mt: 2 }}
       />
     </Box>
   );

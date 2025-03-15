@@ -1,3 +1,4 @@
+// src/UploadManual.js
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Header from '../Components/header';
@@ -13,8 +14,13 @@ import {
   InputLabel,
   CircularProgress,
   IconButton,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 const UploadManual = () => {
   const { user } = useContext(AuthContext);
@@ -42,22 +48,27 @@ const UploadManual = () => {
     { id: 13, label: 'NCR: SS38' },
   ];
 
-  // Manejar la selección del archivo y asignar el nombre del archivo al título
+  // Al seleccionar el archivo, se valida que sea PDF y se asigna su nombre al título
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
+      if (selectedFile.type !== 'application/pdf') {
+        setMessage('Solo se permiten archivos PDF.');
+        return;
+      }
       setFile(selectedFile);
-      setTitle(selectedFile.name); // Asigna automáticamente el nombre del archivo como título
+      setTitle(selectedFile.name);
+      setMessage('');
     }
   };
 
-  // Eliminar el archivo seleccionado y limpiar el título asignado
+  // Permite eliminar el archivo seleccionado
   const handleDeleteFile = () => {
     setFile(null);
     setTitle('');
   };
 
-  // Manejar el envío del formulario
+  // Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,7 +94,6 @@ const UploadManual = () => {
     try {
       const response = await axios.post(
         'https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/upload',
-        //'http://localhost:5000/api/manuals/upload',
         formData,
         {
           headers: {
@@ -92,7 +102,6 @@ const UploadManual = () => {
           },
         }
       );
-
       setMessage(response.data.message);
 
       // Limpiar el formulario
@@ -109,104 +118,152 @@ const UploadManual = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 2,
-      }}
-    >
+    <Box sx={{ backgroundColor: '#F4F4F4', minHeight: '100vh' }}>
       <Header />
 
-
-      <br/>
-<br/>
-<br/>
-<br/>
-
-      <Typography variant="h4" gutterBottom>
-        Subir Manual
-      </Typography>
-      <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px' }}>
-
-        <Button variant="contained" component="label" sx={{ marginTop: 2 }}>
-          Seleccionar archivo
-          <input type="file" hidden accept="application/pdf" onChange={handleFileChange} />
-        </Button>
-
-        {file && (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginTop: 2,
-              padding: 1,
-              border: '1px solid #ccc',
-              borderRadius: 1,
-              width: '100%',
-            }}
-          >
-            <Typography variant="body2">
-              Archivo seleccionado: {file.name}
-            </Typography>
-            <IconButton onClick={handleDeleteFile} color="error">
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        )}
-
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Título"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Descripción"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-
-        <FormControl fullWidth margin="normal" required>
-          <InputLabel>Modelo</InputLabel>
-          <Select
-            value={modelId}
-            onChange={(e) => setModelId(e.target.value)}
-            label="Modelo"
-          >
-            {modelOptions.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ marginTop: 2 }}
-          disabled={loading}
+      <Container
+        sx={{
+          py: 4,
+          mt: '100px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Card
+          sx={{
+            width: '100%',
+            maxWidth: 500,
+            borderRadius: 2,
+            boxShadow: 3,
+          }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Subir'}
-        </Button>
-      </form>
+          <CardHeader
+            title="Subir Manual"
+            sx={{
+              backgroundColor: '#183D83', // Fondo azul oscuro
+              color: '#F9FD05',          // Texto en amarillo
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}
+          />
+          <CardContent>
+            <form onSubmit={handleSubmit}>
+              <Button
+                variant="contained"
+                component="label"
+                sx={{
+                  backgroundColor: '#F9FD05', // Botón amarillo
+                  color: '#183D83',           // Texto azul
+                  mb: 2,
+                  textTransform: 'none',
+                  '&:hover': { backgroundColor: '#CBCA02' },
+                }}
+              >
+                Seleccionar archivo
+                <input type="file" hidden accept="application/pdf" onChange={handleFileChange} />
+              </Button>
+
+              {file && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    mb: 2,
+                    p: 1,
+                    border: '1px dashed #183D83',
+                    borderRadius: 1,
+                    backgroundColor: '#F9FD05',
+                  }}
+                >
+                  <PictureAsPdfIcon sx={{ color: '#183D83' }} />
+                  <Typography variant="body2" sx={{ color: '#183D83' }}>
+                    {file.name}
+                  </Typography>
+                  <IconButton onClick={handleDeleteFile} color="error">
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              )}
+
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Título"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: '#183D83' },
+                    '&:hover fieldset': { borderColor: '#5995ED' },
+                    '&.Mui-focused fieldset': { borderColor: '#F9FD05' },
+                  },
+                }}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Descripción"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: '#183D83' },
+                    '&:hover fieldset': { borderColor: '#5995ED' },
+                    '&.Mui-focused fieldset': { borderColor: '#F9FD05' },
+                  },
+                }}
+              />
+              <FormControl fullWidth margin="normal" required>
+                <InputLabel>Modelo</InputLabel>
+                <Select
+                  value={modelId}
+                  onChange={(e) => setModelId(e.target.value)}
+                  label="Modelo"
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': { borderColor: '#183D83' },
+                      '&:hover fieldset': { borderColor: '#5995ED' },
+                      '&.Mui-focused fieldset': { borderColor: '#F9FD05' },
+                    },
+                  }}
+                >
+                  {modelOptions.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Box sx={{ mt: 3 }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  disabled={loading}
+                  sx={{
+                    backgroundColor: '#183D83',
+                    color: '#F9FD05',
+                    textTransform: 'none',
+                    '&:hover': { backgroundColor: '#5995ED' },
+                  }}
+                >
+                  {loading ? <CircularProgress size={24} /> : 'Subir'}
+                </Button>
+              </Box>
+            </form>
+          </CardContent>
+        </Card>
+      </Container>
 
       {message && (
         <Typography
           variant="body1"
+          align="center"
           color={message.includes('Error') ? 'error' : 'primary'}
-          sx={{ marginTop: 2 }}
+          sx={{ mt: 2 }}
         >
           {message}
         </Typography>

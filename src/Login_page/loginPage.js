@@ -15,18 +15,15 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/login'
-        //'http://localhost:5000/api/auth/login'
-        , {
-        username,
-        password,
-      });
+        'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/login',
+        {
+          username,
+          password,
+        }
+      );
 
       console.log('Respuesta del backend:', response.data);
-
-      // Llamar a la función `login` del contexto
       login(response.data.user, response.data.token, response.data.sessionId);
-
     } catch (err) {
       console.error('Error al iniciar sesión:', err.response?.data || err.message);
       setError(err.response?.data?.message || 'Error desconocido');
@@ -41,21 +38,21 @@ const LoginPage = () => {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        backgroundColor: 'blue',
+        // Fondo con gradiente usando Marian Blue y Cornflower Blue
+        background: 'linear-gradient(135deg, #183D83, #5995ED)',
         padding: 2,
       }}
     >
       <Box
         sx={{
           width: 400,
-          backgroundColor: 'white',
+          backgroundColor: '#F4F4F4', // White Smoke para el contenedor
           borderRadius: 2,
           boxShadow: 3,
           padding: 3,
           textAlign: 'center',
         }}
       >
-        
         <Box
           component="img"
           src={'../images/logo_casuni.png'}
@@ -66,7 +63,7 @@ const LoginPage = () => {
           }}
         />
 
-        <Typography variant="h6" component="h2" gutterBottom>
+        <Typography variant="h6" component="h2" gutterBottom sx={{ color: '#183D83' }}>
           Te damos la bienvenida
         </Typography>
 
@@ -79,6 +76,13 @@ const LoginPage = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: '#183D83' },
+                '&:hover fieldset': { borderColor: '#5995ED' },
+                '&.Mui-focused fieldset': { borderColor: '#CBCA02' },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -89,6 +93,13 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: '#183D83' },
+                '&:hover fieldset': { borderColor: '#5995ED' },
+                '&.Mui-focused fieldset': { borderColor: '#CBCA02' },
+              },
+            }}
           />
           {error && (
             <Typography color="error" sx={{ marginTop: 2 }}>
@@ -98,9 +109,13 @@ const LoginPage = () => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             fullWidth
-            sx={{ marginTop: 2 }}
+            sx={{
+              marginTop: 2,
+              backgroundColor: '#F9FD05', // Yellow para llamar la atención
+              color: '#183D83',
+              '&:hover': { backgroundColor: '#CBCA02' }, // Cambio a Citrine al pasar el mouse
+            }}
           >
             Entrar
           </Button>
