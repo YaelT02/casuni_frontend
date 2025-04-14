@@ -4,12 +4,13 @@ import LoginPage from './Login_page/loginPage';
 import HomePage from './HomePage/homePage';
 import ManualsPage from './Manuals/manuales';
 import UploadManualPage from './Components/uploadManual'; // Página para subir manuales
-import CapacitacionNCRSS23 from './Capacitaciones/NCR/ncrSS23';
 import { AuthProvider } from './context/authContext'; // Importar el AuthProvider
 import ProtectedRoute from './Components/protectedRoute'; // Componente para rutas protegidas
 import ChangePassword from './Login_page/changePassword';
 import TermsAndConditions from './Components/termsAndConditions';
 import BitacoraTable from './Bitacora/bitacoraTable';
+import CrearCurso from './Capacitaciones/createCourse';
+import ModulosCurso from './Capacitaciones/createModulesPage';
 
 const App = () => {
   return (
@@ -58,19 +59,28 @@ const App = () => {
           />
 
           <Route
-            path="/bitacora"
+            path="/createCourse"
             element={
               <ProtectedRoute requiredRole="admin">
-                <BitacoraTable />
+                <CrearCurso />
               </ProtectedRoute>
             }
           />
 
           <Route
-            path="/capacitaciones/ncrSS23"
+            path="/createCourse/:courseId/modules"
             element={
-              <ProtectedRoute>
-                <CapacitacionNCRSS23 />
+              <ProtectedRoute requiredRole="admin">
+                <ModulosCurso />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/bitacora"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <BitacoraTable />
               </ProtectedRoute>
             }
           />
