@@ -45,16 +45,17 @@ const CreateCourseForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Se asume que el endpoint crea el curso y retorna el training id
       const { data } = await axios.post(
         'https://casunibackend-5f8218b68a78.herokuapp.com/api/courses',
         formData,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
+      console.log('Respuesta creación curso:', data);
       alert('Curso creado exitosamente');
-      // Supongamos que el backend retorna el id del curso creado en data.trainingId
+
       const trainingId = data.trainingId;
-      // Redirigimos a la pantalla para agregar módulos, pasando el id del curso
+      if (!trainingId) throw new Error('No se recibió trainingId');
+      
       navigate(`/createCourse/${trainingId}/modules`);
     } catch (error) {
       console.error('Error al crear curso', error);

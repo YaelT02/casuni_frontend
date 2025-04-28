@@ -8,13 +8,12 @@ import { AuthContext } from '../context/authContext';
 import { Add } from '@mui/icons-material';
 
 const CreateModulesPage = () => {
-  const { courseId } = useParams(); // recibes el ID del curso desde la URL
+  const { courseId } = useParams(); 
+  console.log("Course ID:", courseId);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   
-  // Estado para módulos y para gestionar el contenido multimedia de cada módulo
-  // Por simplicidad, haremos que se cree un módulo y, en el mismo formulario, se pueda subir un archivo
-  const [moduleData, setModuleData] = useState({
+ const [moduleData, setModuleData] = useState({
     title: '',
     description: '',
     order: '',
