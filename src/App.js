@@ -11,6 +11,8 @@ import TermsAndConditions from './Components/termsAndConditions';
 import BitacoraTable from './Bitacora/bitacoraTable';
 import CrearCurso from './Capacitaciones/createCourse';
 import ModulosCurso from './Capacitaciones/createModulesPage';
+import ListaCursos from './Capacitaciones/CoursesListPage';
+import DetallesCurso from './Capacitaciones/CourseDetailsPage';
 
 const App = () => {
   return (
@@ -72,6 +74,24 @@ const App = () => {
             element={
               <ProtectedRoute requiredRole="admin">
                 <ModulosCurso />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/ListCourse"
+            element={
+              <ProtectedRoute>
+                <ListaCursos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/capacitaciones/:id"
+            element={
+              <ProtectedRoute>
+                <DetallesCurso />
               </ProtectedRoute>
             }
           />

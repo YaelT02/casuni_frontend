@@ -8,8 +8,6 @@ import {
   Typography,
   Menu,
   MenuItem,
-  List,
-  ListItem,
   ListItemIcon,
   ListItemText,
   Divider,
@@ -24,6 +22,7 @@ import {
   ExitToApp,
   Upload,
   ListAltSharp,
+  Add,            // <-- Importamos el icono Add
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
@@ -94,12 +93,26 @@ const Header = () => {
           </Button>
 
           <Button
-            onClick={() => handleNavigate('/capacitaciones')}
+            onClick={() => handleNavigate('/ListCourse')}
             sx={{ color: '#183D83', textTransform: 'none', fontWeight: 'bold' }}
           >
             CAPACITACIONES
           </Button>
-          
+
+          {/* Botón NUEVO CURSO para administradores */}
+          {user?.role === 'admin' && (
+            <Button
+              onClick={() => handleNavigate('/createCourse')}
+              startIcon={<Add />}
+              sx={{
+                color: '#183D83',
+                textTransform: 'none',
+                fontWeight: 'bold',
+              }}
+            >
+              NUEVO CURSO
+            </Button>
+          )}
         </Box>
 
         {/* Menú del Usuario */}
