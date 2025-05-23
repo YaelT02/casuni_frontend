@@ -60,6 +60,18 @@ const CoursesListPage = () => {
 
   return (
     <Container sx={{ mt: 10, mb: 8 }}>
+
+    <Box sx={{ mb: 2 }}>
+      <Button
+        variant="outlined"
+        onClick={() => navigate('/')}
+        startIcon={<i className="fas fa-home"></i>}
+        sx={{ textTransform: 'none' }}
+      >
+        Regresar a Principal
+      </Button>
+    </Box>
+
       <Typography variant="h4" fontWeight="bold" color="#183D83" gutterBottom>
         Capacitaciones Disponibles
       </Typography>

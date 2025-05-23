@@ -13,6 +13,8 @@ import CrearCurso from './Capacitaciones/createCourse';
 import ModulosCurso from './Capacitaciones/createModulesPage';
 import ListaCursos from './Capacitaciones/CoursesListPage';
 import DetallesCurso from './Capacitaciones/CourseDetailsPage';
+import MisCursos from './Capacitaciones/MyCoursesPage';
+import CreateCourse from './Capacitaciones/CreateCourseWizard';
 
 const App = () => {
   return (
@@ -61,6 +63,15 @@ const App = () => {
           />
 
           <Route
+            path="/crear-curso"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <CreateCourse />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/createCourse"
             element={
               <ProtectedRoute requiredRole="admin">
@@ -92,6 +103,15 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <DetallesCurso />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/mis-cursos"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <MisCursos />
               </ProtectedRoute>
             }
           />

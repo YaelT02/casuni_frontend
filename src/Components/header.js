@@ -22,6 +22,7 @@ import {
   ExitToApp,
   Upload,
   ListAltSharp,
+  MenuBookOutlined,
   Add,            // <-- Importamos el icono Add
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -102,7 +103,7 @@ const Header = () => {
           {/* Botón NUEVO CURSO para administradores */}
           {user?.role === 'admin' && (
             <Button
-              onClick={() => handleNavigate('/createCourse')}
+              onClick={() => handleNavigate('/crear-curso')}
               startIcon={<Add />}
               sx={{
                 color: '#183D83',
@@ -176,6 +177,21 @@ const Header = () => {
                   <ListAltSharp fontSize="small" sx={{ color: '#183D83' }} />
                 </ListItemIcon>
                 <ListItemText primary="Bitácora" sx={{ color: '#183D83' }} />
+              </MenuItem>
+            )}
+            {user?.role === 'admin' && (
+              <MenuItem
+                onClick={() => handleNavigate('/mis-cursos')}
+                sx={{
+                  px: 2,
+                  py: 1,
+                  '&:hover': { backgroundColor: '#f9f9f9', color: '#CBCA02' },
+                }}
+              >
+                <ListItemIcon>
+                  <MenuBookOutlined fontSize="small" sx={{ color: '#183D83' }} />
+                </ListItemIcon>
+                <ListItemText primary="Mis cursos" sx={{ color: '#183D83' }} />
               </MenuItem>
             )}
             <MenuItem

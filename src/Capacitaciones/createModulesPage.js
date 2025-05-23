@@ -16,13 +16,13 @@ import {
   CircularProgress,
   LinearProgress,
 } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/authContext';
 import { Add } from '@mui/icons-material';
 
-const CreateModulesPage = () => {
-  const { courseId } = useParams();
+const CreateModulesPage = ({ courseId }) => {
+  //const { courseId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 

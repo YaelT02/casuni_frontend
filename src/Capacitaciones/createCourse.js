@@ -26,7 +26,7 @@ const modelOptions = [
   { id: 13, label: 'NCR: SS38' },
 ];
 
-const CreateCourseForm = () => {
+const CreateCourseForm = ({ onSuccess }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -56,7 +56,8 @@ const CreateCourseForm = () => {
       const trainingId = data.trainingId;
       if (!trainingId) throw new Error('No se recibió trainingId');
       
-      navigate(`/createCourse/${trainingId}/modules`);
+      //navigate(`/createCourse/${trainingId}/modules`);
+      onSuccess(trainingId);
     } catch (error) {
       console.error('Error al crear curso', error);
       alert('Hubo un error al crear el curso');
@@ -65,6 +66,7 @@ const CreateCourseForm = () => {
 
   return (
     <Container maxWidth="md" sx={{ mt: 8 }}>
+
       <Paper elevation={4} sx={{ p: 4, borderRadius: 3, backgroundColor: '#F4F4F4' }}>
         <Typography variant="h4" fontWeight="bold" mb={3} color="#183D83">
           Crear nuevo curso
