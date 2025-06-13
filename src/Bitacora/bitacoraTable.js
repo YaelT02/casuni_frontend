@@ -87,7 +87,7 @@ const BitacoraTable = () => {
     const fetchLogs = async () => {
       try {
         const response = await axios.get(
-          'https://casunibackend-5f8218b68a78.herokuapp.com/api/logs',
+          'https://casuni-backend-d46ce789fb30.herokuapp.com/api/logs',
           { headers: { Authorization: `Bearer ${user.token}` } }
         );
         setLogs(response.data);

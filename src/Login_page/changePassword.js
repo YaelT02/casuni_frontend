@@ -45,7 +45,7 @@ const ChangePassword = () => {
 
     try {
       const response = await axios.post(
-        'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/change-password',
+        'https://casuni-backend-d46ce789fb30.herokuapp.com/api/auth/change-password',
         {
           userId: user.id,
           newPassword,

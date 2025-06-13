@@ -53,7 +53,7 @@ const CreateModulesPage = ({ courseId }) => {
     try {
       // 1) Crear el módulo
       const { data: moduleRes } = await axios.post(
-        `https://casunibackend-5f8218b68a78.herokuapp.com/api/modules/${courseId}/modules`,
+        `https://casuni-backend-d46ce789fb30.herokuapp.com/api/modules/${courseId}/modules`,
         moduleData,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -69,7 +69,7 @@ const CreateModulesPage = ({ courseId }) => {
         form.append('order', contentOrder);
 
         await axios.post(
-          `https://casunibackend-5f8218b68a78.herokuapp.com/api/contents/${moduleId}/content`,
+          `https://casuni-backend-d46ce789fb30.herokuapp.com/api/contents/${moduleId}/content`,
           form,
           {
             headers: {

@@ -31,7 +31,7 @@ const ManualsPage = () => {
     const fetchManuals = async () => {
       try {
         const response = await axios.get(
-          'https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/',
+          'https://casuni-backend-d46ce789fb30.herokuapp.com/api/manuals/',
           { headers: { Authorization: `Bearer ${user.token}` } }
         );
         setManuals(response.data);
@@ -56,7 +56,7 @@ const ManualsPage = () => {
     console.log("SessionId enviado:", user.sessionId);
     try {
       const response = await axios.get(
-        `https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/download/${manual.id}`,
+        `https://casuni-backend-d46ce789fb30.herokuapp.com/api/manuals/download/${manual.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

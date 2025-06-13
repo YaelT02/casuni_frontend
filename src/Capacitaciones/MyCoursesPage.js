@@ -26,8 +26,7 @@ const MyCoursesPage = () => {
     const fetchMyCourses = async () => {
       try {
         const { data } = await axios.get(
-          //'https://casunibackend-5f8218b68a78.herokuapp.com/api/courses/my-courses',
-          'http://localhost:5000/api/courses/my-courses',
+          'https://casuni-backend-d46ce789fb30.herokuapp.com/api/courses/my-courses',
           { headers: { Authorization: `Bearer ${user.token}` } }
         );
         setCourses(data);

@@ -93,7 +93,7 @@ const UploadManual = () => {
 
     try {
       const response = await axios.post(
-        'https://casunibackend-5f8218b68a78.herokuapp.com/api/manuals/upload',
+        'https://casuni-backend-d46ce789fb30.herokuapp.com/api/manuals/upload',
         formData,
         {
           headers: {

@@ -46,7 +46,7 @@ const CreateCourseForm = ({ onSuccess }) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'https://casunibackend-5f8218b68a78.herokuapp.com/api/courses',
+        'https://casuni-backend-d46ce789fb30.herokuapp.com/api/courses',
         formData,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
