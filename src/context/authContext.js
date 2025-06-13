@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       axios
         .post(
-          'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/protected',
+          'https://casuni-backend-d46ce789fb30.herokuapp.com/api/auth/protected',
           { token }
         )
         .then((response) => {
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     const sessionId = user.sessionId || localStorage.getItem('sessionId');
     try{
       await axios.post(
-        'https://casunibackend-5f8218b68a78.herokuapp.com/api/auth/logout',
+        'https://casuni-backend-d46ce789fb30.herokuapp.com/api/auth/logout',
         {},
         { 
           headers: {
